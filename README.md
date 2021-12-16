@@ -10,8 +10,8 @@ Clone the repository:
 $ git clone git@github.com:ivankliuk/log-parser.git && cd log-parser
 ```
 
-To run the application:
+Run the application:
 
 ```bash
-$ sbt "run /path/to/the/logs
+$ sbt "run /path/to/the/logs"
 ```
