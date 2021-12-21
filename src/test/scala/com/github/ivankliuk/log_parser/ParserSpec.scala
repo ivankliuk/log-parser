@@ -1,11 +1,10 @@
 package com.github.ivankliuk.log_parser
 
-import com.github.ivankliuk.log_parser.Models.{LogLine, Session, UserId, UserLogLineDB}
-import com.github.ivankliuk.log_parser.Main.{UserRepositoryInMemory, ReportingServiceImpl}
+import com.github.ivankliuk.log_parser.Constants.ZonedDateTimFormatter
+import com.github.ivankliuk.log_parser.Models.{LogLine, Session, UserId}
 import org.scalatest.funsuite.AnyFunSuite
 
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 class ParserSpec extends AnyFunSuite {
 
@@ -24,9 +23,8 @@ class ParserSpec extends AnyFunSuite {
 object ParserSpec {
   val userId = new UserId("ivan")
   val path = "/dev/null"
-  val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MMM/yyy:HH:mm:ss X")
 
-  def ts(timestamp: String): ZonedDateTime = ZonedDateTime.parse(timestamp, formatter)
+  def ts(timestamp: String): ZonedDateTime = ZonedDateTime.parse(timestamp, ZonedDateTimFormatter)
 
   val backend: UserLogLineDB = Map(
     userId -> List(

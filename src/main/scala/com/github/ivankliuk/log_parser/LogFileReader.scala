@@ -8,7 +8,7 @@ import scala.io.Source
 import scala.util.Try
 
 object LogFileReader {
-  def read(filename: String): ErrorOr[UserLogLineDB] =
+  def readFile(filename: String): ErrorOr[UserLogLineDB] =
     Try {
       val bufferedSource = Source.fromFile(filename)
       val sessionIterator = for {
@@ -25,9 +25,9 @@ object LogFileReader {
       group
     }.toEither
 
-  def readFiles(listOfFiles: List[String])(implicit ec: ExecutionContext): Future[ErrorOr[List[UserLogLineDB]]] =
+  def readFilesAsync(listOfFiles: List[String])(implicit ec: ExecutionContext): Future[ErrorOr[List[UserLogLineDB]]] =
     listOfFiles
-      .map(filename => Future(LogFileReader.read(filename)))
+      .map(filename => Future(LogFileReader.readFile(filename)))
       .sequence
       .map {
         results =>

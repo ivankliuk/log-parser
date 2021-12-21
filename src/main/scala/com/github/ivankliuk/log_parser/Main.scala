@@ -12,7 +12,7 @@ object Main extends App {
   val program = for {
     path <- EitherT.fromEither[Future](Utils.getPathFromCmd(args))
     listOfFiles <- EitherT.fromEither[Future](Utils.getListOfFilenames(path))
-    db <- EitherT(LogFileReader.readFiles(listOfFiles))
+    db <- EitherT(LogFileReader.readFilesAsync(listOfFiles))
     combinedDb <- db.reduce(_ |+| _).pure[Future].attemptT
     userRepo <- new UserRepositoryInMemory(combinedDb).pure[Future].attemptT
     reportingService <- new ReportingServiceImpl(userRepo).pure[Future].attemptT
